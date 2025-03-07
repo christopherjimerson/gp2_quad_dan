@@ -1,0 +1,3 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement name="ModList" style="flex-grow: 1; left: 76%; position: relative; right: 100%; top: 30%; bottom: 100%; width: 350px; height: 500px; max-width: 350px; max-height: 500px; min-width: 350px; min-height: 0; flex-wrap: wrap;" />
+</engine:UXML>

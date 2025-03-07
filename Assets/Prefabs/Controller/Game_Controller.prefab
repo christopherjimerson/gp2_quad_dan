@@ -1,0 +1,201 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2059200567030241482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6519675667282835376}
+  - component: {fileID: 412058052615126121}
+  m_Layer: 0
+  m_Name: InsanityController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6519675667282835376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059200567030241482}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.7344809, y: 14.754667, z: 344.1732}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1075497956443051700}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &412058052615126121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059200567030241482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f0b205e0f5567a48b12b9f8691bbcae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRam: 160
+  _usedRam: 0
+  extraRam: 0
+  firstThresholdPercentage: 0
+  firstThresholdEffects:
+  - {fileID: 11400000, guid: 04c212d92ef978d4eb488ae49cdaeec5, type: 2}
+  secondThresholdPercentage: 25
+  secondThresholdEffects: []
+  thirdThresholdPercentage: 50
+  thirdThresholdEffects: []
+  fourthThresholdPercentage: 100
+  fourthThresholdEffects: []
+--- !u!1 &4659394719415740828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1075497956443051700}
+  - component: {fileID: 8729666247050367042}
+  m_Layer: 0
+  m_Name: Game_Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1075497956443051700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4659394719415740828}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6519675667282835376}
+  - {fileID: 1339811037959849899}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8729666247050367042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4659394719415740828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f9841bc4c4dc884db9ecec10e251062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hud: {fileID: 3986620802598498729, guid: fb331cb340f4e0549850abb4ca26c4c4, type: 3}
+  buffUI: {fileID: 0}
+  NewGameCutscene: {fileID: 0}
+  DeathScreen: {fileID: 0}
+  PlayerPrefab: {fileID: 3873194731718161146, guid: 647661da1febc444eaabebcb35ff24df, type: 3}
+  CurrentPlayer: {fileID: 0}
+  spawnRoom: {fileID: 0}
+  CurrentEquippedRam:
+  - {fileID: 11400000, guid: e1d95866dcb2d044dbd4787d490eb664, type: 2}
+  - {fileID: 11400000, guid: 3f45752fb3dc52c48af7b15f1b9bfe97, type: 2}
+  - {fileID: 11400000, guid: 4c3747e94af738d4791b02dc0def4987, type: 2}
+  - {fileID: 11400000, guid: 6ceb05e0f378cd44b9b8fdc0d01e4eca, type: 2}
+  StartingRam: []
+  BackPackRam:
+  - {fileID: 11400000, guid: 2de8ca6c482f2d14294f3962fc5a30c1, type: 2}
+  - {fileID: 11400000, guid: e72b0eeede299364bba9a1a01e5631d5, type: 2}
+  - {fileID: 11400000, guid: f8f986885bfb7ea4a83b903f9ee05edd, type: 2}
+  - {fileID: 11400000, guid: 88ce1290f8ec2804290a3350f58635f1, type: 2}
+  AllRamNotEquipped:
+  - {fileID: 11400000, guid: 632fbab346c10b748aa4e0155d70f15e, type: 2}
+  - {fileID: 11400000, guid: 640d48ebe5e31c54eb78191a18f3e81f, type: 2}
+  AllRam:
+  - {fileID: 11400000, guid: f8f986885bfb7ea4a83b903f9ee05edd, type: 2}
+  - {fileID: 11400000, guid: 2de8ca6c482f2d14294f3962fc5a30c1, type: 2}
+  - {fileID: 11400000, guid: 4c3747e94af738d4791b02dc0def4987, type: 2}
+  - {fileID: 11400000, guid: 88ce1290f8ec2804290a3350f58635f1, type: 2}
+  - {fileID: 11400000, guid: e1d95866dcb2d044dbd4787d490eb664, type: 2}
+  - {fileID: 11400000, guid: 3f45752fb3dc52c48af7b15f1b9bfe97, type: 2}
+  - {fileID: 11400000, guid: 6ceb05e0f378cd44b9b8fdc0d01e4eca, type: 2}
+  - {fileID: 11400000, guid: e72b0eeede299364bba9a1a01e5631d5, type: 2}
+  - {fileID: 11400000, guid: 632fbab346c10b748aa4e0155d70f15e, type: 2}
+  - {fileID: 11400000, guid: 640d48ebe5e31c54eb78191a18f3e81f, type: 2}
+  AvalibleBuffs:
+  - {fileID: 11400000, guid: 22ee0efc2e4367b49a0c0c9068db2dda, type: 2}
+  - {fileID: 11400000, guid: 352d92362b568864498a9fefea429dea, type: 2}
+  - {fileID: 11400000, guid: fcdfdb02fb9fb5545a516f1660b11420, type: 2}
+  PlayerBuffs: []
+  EquippedInInsanity: []
+  latestRam: {fileID: 0}
+  UpgradeUI: {fileID: 0}
+  LoadPlayerScreen: {fileID: 0}
+  DemoEquippedRam: []
+  DemoBackPackRam: []
+  playerHasWeapon: 0
+  playerHasRam: 0
+  insanityController: {fileID: 412058052615126121}
+  weaponDataStorage: {fileID: 4878059678149584510}
+  PauseMenuUI: {fileID: 0}
+--- !u!1 &5295033040493559958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1339811037959849899}
+  - component: {fileID: 4878059678149584510}
+  m_Layer: 0
+  m_Name: WeaponStorage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1339811037959849899
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5295033040493559958}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -9.466981, y: 0.007661636, z: 288.60068}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1075497956443051700}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4878059678149584510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5295033040493559958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0347fa56f40a27446be1e4a8429a119a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInputHandler: {fileID: 0}
+  weaponSelected: 0
+  pistolSelected: 0
+  shotgunSelected: 0
+  rifleSelected: 0
