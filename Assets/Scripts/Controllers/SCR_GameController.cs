@@ -301,6 +301,7 @@ public class SCR_GameController : MonoBehaviour
     }
 
     public void SpawnPlayer() {
+
         var spawnPoint = GameObject.FindGameObjectWithTag("Spawn");
 
 
@@ -317,6 +318,7 @@ public class SCR_GameController : MonoBehaviour
         CurrentPlayer = Instantiate(PlayerPrefab, spawnPoint.transform.position, Quaternion.identity);
         if (currentFloor > 1)
         {
+            LoopBuffList(CurrentPlayer);
             Debug.Log(currentFloor);
             weaponDataStorage.EquipStorageWeapon();
             PlayerChoseWeapon();
@@ -332,7 +334,27 @@ public class SCR_GameController : MonoBehaviour
 
         SaveManager.SaveGame();
     }
-
+    void LoopBuffList(GameObject player) {
+        foreach (var buff in PlayerBuffs) {
+            switch (buff.Buff) {
+                case BuffType.SPD:
+                    player.TryGetComponent<SCR_FirstPersonController>(out SCR_FirstPersonController speed);
+                    speed.speedIncrease += (speed.defaultWalkSpeed * (buff.GetPercentValue() / 100f));
+                    break;
+                case BuffType.HP:
+                    player.TryGetComponent<PlayerHealth>(out PlayerHealth health);
+                    health.currentHealth += (health.currentHealth * (buff.GetPercentValue() / 100));
+                    health.maxHealth += (health.maxHealth * buff.GetPercentValue() / 100);
+                    break;
+                case BuffType.DMG:
+                    player.TryGetComponent<SCR_FirstPersonController>(out SCR_FirstPersonController dmg);
+                    dmg.DamageMultiplier += buff.GetPercentValue();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+    }
 
     /// <summary>
     /// Provides the caller with a ram upgrade from the not equipped ram list

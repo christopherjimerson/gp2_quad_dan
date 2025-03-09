@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
 
 public class SCR_FirstPersonController : MonoBehaviour {
     [Header("Movement Parameters")]
-    [SerializeField] public float walkSpeed = 3.0f;
+    [SerializeField] public float defaultWalkSpeed = 7.0f;
+    [SerializeField] public float speedIncrease = 0f;
+    [SerializeField] public float equippedSOSpeedIncrease = 2.0f;
+    [SerializeField] public float walkSpeed = 7.0f;
     [SerializeField] private float stepInterval = 0.5f;
     private float stepTimer = 0f;
 
@@ -146,8 +151,8 @@ public class SCR_FirstPersonController : MonoBehaviour {
         _buffUI.sortingOrder = 22;
         _buffUI.planeDistance= 0.2f;
         */
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
         currentStamina = maxStamina;
         if (!hud) { hud = SCR_HeadsUpDisplay.Instance; }
 
@@ -173,12 +178,11 @@ public class SCR_FirstPersonController : MonoBehaviour {
         {
             SCR_WeaponVisibility.Instance.EnableWeaponSelect();
         }
-        LoopBuffList();
+        //LoopBuffList();
         if (shieldEquipped) { hud.shieldIcon.SetActive(true); hud.shieldNotEquipped.gameObject.SetActive(false); }
         if (stunEquipped) { hud.stunIcon.SetActive(true); hud.stunNotEquipped.gameObject.SetActive(false); }
         if (repelEquipped) { hud.repelIcon.SetActive(true); hud.repelNotEquipped.gameObject.SetActive(false); }
         if (virusEquipped) { hud.virusIcon.SetActive(true); hud.virusNotEquipped.gameObject.SetActive(false); }
-
     }
 
 
@@ -194,8 +198,8 @@ public class SCR_FirstPersonController : MonoBehaviour {
         {
             Debug.Log("Should unpause");
             SCR_GameController.Instance.TogglePauseMenuUI(false, 1);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+            UnityEngine.Cursor.visible = false;
             isPaused = false;
         }
 
@@ -235,7 +239,7 @@ public class SCR_FirstPersonController : MonoBehaviour {
             ActivatePower();
         }
 
-
+        GetConstrainedArea();
     }
 
     
@@ -450,23 +454,27 @@ public class SCR_FirstPersonController : MonoBehaviour {
 
     public void RepelEnemies() {
         Collider[] enemies = Physics.OverlapSphere(transform.position, repelRadius);
+        Bounds repelBounds = GetConstrainedArea();
+
         foreach (Collider col in enemies)
         {
             if (col.TryGetComponent<SCR_Enemy>(out SCR_Enemy enemy))
             {
                 Debug.Log("Found Enemy Collider");
                 enemy.TakeDamage(repelDamage);
-                if (enemy.TryGetComponent<NavMeshAgent>(out NavMeshAgent agent))
-                {
+                if (enemy.TryGetComponent<NavMeshAgent>(out NavMeshAgent agent)) {
                     Debug.Log("Found Enemy Nav Agent");
                     Vector3 pushDirection = (enemy.transform.position - transform.position).normalized;
-                    Vector3 targetPosition = enemy.transform.position + pushDirection * repelForce;
+                    Vector3 unclampedTargetPosition = enemy.transform.position + pushDirection * repelForce;
 
-                    if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, repelForce, NavMesh.AllAreas))
-                    {
-                        Debug.Log("This works");
-                        enemy.transform.position = hit.position;
-                        Debug.Log(agent.Warp(hit.position));
+                    Vector3 clampedTargetPosition = new Vector3(
+                        Mathf.Clamp(unclampedTargetPosition.x, repelBounds.min.x, repelBounds.max.x),
+                        enemy.transform.position.y, // Keep the Y position unchanged
+                        Mathf.Clamp(unclampedTargetPosition.z, repelBounds.min.z, repelBounds.max.z)
+                    );
+
+                    if (NavMesh.SamplePosition(clampedTargetPosition, out NavMeshHit hit, repelForce, NavMesh.AllAreas)) {
+                        Debug.Log("Valid Repel Position");
                         agent.Warp(hit.position);
                     }
                 }
@@ -545,7 +553,8 @@ public class SCR_FirstPersonController : MonoBehaviour {
             switch (buff.Buff)
             {
                 case BuffType.SPD:
-                    walkSpeed += (walkSpeed * (buff.GetPercentValue() / 100f));
+                    speedIncrease += (buff.GetPercentValue() / 100f);
+                    //walkSpeed += (walkSpeed * (buff.GetPercentValue() / 100f));
                     break;
                 case BuffType.HP:
                     GetComponent<PlayerHealth>().currentHealth += (GetComponent<PlayerHealth>().currentHealth * (buff.GetPercentValue() / 100));
@@ -615,6 +624,44 @@ public class SCR_FirstPersonController : MonoBehaviour {
         }
         hud.virusCooldown.gameObject.SetActive(false);
         _virusOnCoolDown = false;
+    }
+
+    private Bounds GetConstrainedArea() {
+        float halfSize = repelRadius * 0.9f; // Start with near max repel area
+        Vector3 center = transform.position;
+
+        float leftLimit = -halfSize, rightLimit = halfSize;
+        float forwardLimit = halfSize, backLimit = -halfSize;
+
+        GameObject[] walls = GameObject.FindGameObjectsWithTag("Wall");
+        foreach (GameObject wall in walls) {
+            Collider wallCollider = wall.GetComponent<Collider>();
+            if (wallCollider != null) {
+                Vector3 closestPoint = wallCollider.ClosestPoint(center);
+                Vector3 direction = (closestPoint - center).normalized;
+                float distance = Vector3.Distance(center, closestPoint);
+
+                if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z)) // Left/Right Walls
+                {
+                    if (direction.x > 0) rightLimit = Mathf.Min(rightLimit, distance * 0.9f);
+                    else leftLimit = Mathf.Max(leftLimit, -distance * 0.9f);
+                } else // Forward/Backward Walls
+                  {
+                    if (direction.z > 0) forwardLimit = Mathf.Min(forwardLimit, distance * 0.9f);
+                    else backLimit = Mathf.Max(backLimit, -distance * 0.9f);
+                }
+            }
+        }
+
+        Vector3 size = new Vector3(rightLimit - leftLimit, 5f, forwardLimit - backLimit);
+        Vector3 adjustedCenter = center + new Vector3((rightLimit + leftLimit) / 2, 0, (forwardLimit + backLimit) / 2);
+
+        return new Bounds(adjustedCenter, size);
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = new Color(1, 0, 0, 0.3f); // Semi-transparent red
+        Gizmos.DrawWireCube(GetConstrainedArea().center, GetConstrainedArea().size);
     }
 
 }

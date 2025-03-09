@@ -5,7 +5,7 @@ public class SCR_SO_SprintRam : SCR_SO_Ram {
         var playerController = SCR_GameController.Instance.CurrentPlayer.GetComponent<SCR_FirstPersonController>();
         if (playerController)
         {
-            playerController.walkSpeed += 2f;
+            playerController.walkSpeed = playerController.defaultWalkSpeed + playerController.equippedSOSpeedIncrease + playerController.speedIncrease;
         }
         else
         {
@@ -18,7 +18,7 @@ public class SCR_SO_SprintRam : SCR_SO_Ram {
         var playerController = SCR_GameController.Instance.CurrentPlayer.GetComponent<SCR_FirstPersonController>();
         if (playerController)
         {
-            playerController.walkSpeed -= 2f;
+            playerController.walkSpeed = playerController.defaultWalkSpeed + playerController.speedIncrease;
         }
         else
         {
