@@ -588,6 +588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxRam: 160
+  _usedRam: 0
   extraRam: 0
   firstThresholdPercentage: 0
   firstThresholdEffects:
