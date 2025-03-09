@@ -9,6 +9,7 @@ public class SCR_HeadsUpDisplay : MonoBehaviour
     //[SerializeField] public bool hpSOEquiped = false;
     [SerializeField] private Image Insanity;
     [SerializeField] public Image  staminaBar;
+    [SerializeField] public Image interactionText;
     [SerializeField] public GameObject miniMap, radarMap;
     //[SerializeField] public bool miniMapSOEquiped = false; 
     [SerializeField] public GameObject pointReticle;

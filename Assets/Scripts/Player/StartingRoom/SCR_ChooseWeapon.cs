@@ -6,6 +6,7 @@ public class SCR_ChooseWeapon : MonoBehaviour
     public int selectedWeapon;
     public bool canSelect;
     private SCR_PlayerInputHandler playerInputHandler;
+    private SCR_HeadsUpDisplay headsUpDisplay;
     public GameObject weaponSelection;
 
     void Awake()
@@ -16,7 +17,7 @@ public class SCR_ChooseWeapon : MonoBehaviour
 
     void Start()
     {
-
+        headsUpDisplay = SCR_HeadsUpDisplay.Instance;
         if (playerInputHandler == null)
         {
             Debug.Log("No current player");
@@ -26,6 +27,7 @@ public class SCR_ChooseWeapon : MonoBehaviour
     void OnTriggerEnter(Collider player)
     {
         canSelect = true;
+        headsUpDisplay.interactionText.gameObject.SetActive(true);
         Debug.Log("Collided");
         //player.gameObject.CompareTag("Player") && 
         
@@ -33,6 +35,7 @@ public class SCR_ChooseWeapon : MonoBehaviour
 
     void OnTriggerExit(Collider player)
     {
+        headsUpDisplay.interactionText.gameObject.SetActive(false);
         canSelect = false;
     }
 
