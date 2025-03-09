@@ -6,26 +6,29 @@ public enum Rarity {NORMAL, RARE, EPIC}
 [CreateAssetMenu(fileName = "Buff", menuName = "Create Buff")]
 public class SCR_SO_Buff : ScriptableObject
 {
-    public BuffType Buff = BuffType.SPD;
-    private Rarity Quality = Rarity.NORMAL;
+    public BuffType Buff;
+    public Rarity Quality;
 
     [SerializeField]
     private string displayName = "Buff name";
     [SerializeField]
     private string descrition = "This is a buff";
 
-    private int valueMultiplier = 0, RamCost = 0;
+    [SerializeField] public int valueMultiplier = 0, RamCost = 0;
 
+    /*
     [Header("% Chance that the quality has cost")]
-    public float chanceOfCostRare = 0.7f, chanceOfCostEpic = 0.7f;
+    public float chanceOfCostRare, chanceOfCostEpic;
+  
 
     [Header("Quality multiplier")]
-    public int NormalPercent = 5, RarePercent = 20, EpicPercent = 40;
+    public int NormalPercent, RarePercent, EpicPercent;
 
 
     [Header("% chance of buff being this quality")]
     [SerializeField]
-    private float RareChancePercentage = 15f, EpicChancePercentage = 5f;
+    private float RareChancePercentage, EpicChancePercentage;
+    */
 
     public int GetPercentValue()
     {
@@ -64,14 +67,15 @@ public class SCR_SO_Buff : ScriptableObject
                   $"RamCost: {RamCost.ToString()}, ValueToPlayer: {valueMultiplier.ToString()}");
     }
 
-    
 
-    public void RandomizeQuality()
+    /*
+     * public void RandomizeQuality()
     {
-        int n = Random.Range(0,100);
+        float n = Random.Range(0,100);
 
-        if (n <= RareChancePercentage)
+        if (n <= RareChancePercentage && n > EpicChancePercentage)
         {
+            Debug.Log("Rare Buff" + n);
             Quality = Rarity.RARE;
 
             float range = Random.Range(0, 100);
@@ -80,10 +84,13 @@ public class SCR_SO_Buff : ScriptableObject
             RamCost = range <= chanceOfCostRare ? Random.Range(1, 20) : 0;
 
             valueMultiplier = RarePercent;
+            Debug.Log(valueMultiplier);
+
         }
 
         if (n <= EpicChancePercentage)
         {
+            Debug.Log("Epic Buff" + n);
             Quality = Rarity.EPIC;
 
             float range = Random.Range(0, 100);
@@ -91,12 +98,22 @@ public class SCR_SO_Buff : ScriptableObject
 
             RamCost = range <= chanceOfCostEpic ? Random.Range(1, 40) : 0;
             valueMultiplier = EpicPercent;
+            Debug.Log(valueMultiplier);
         }
 
-        if (!(n > RareChancePercentage)) return;
-        Quality = Rarity.NORMAL;
-        RamCost = 0;
-        valueMultiplier = NormalPercent;
+        if (n > RareChancePercentage) {
+            Quality = Rarity.NORMAL;
+            Debug.Log("Normal Buff" + n);
+            RamCost = 0;
+            valueMultiplier = NormalPercent;
+            Debug.Log(valueMultiplier);
+
+        }
+
+        //if (!(n > RareChancePercentage)) return;
 
     }
+    */
+
+
 }

@@ -10,15 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0396fd8f0329b6143a8dc502787d55bd, type: 3}
-  m_Name: DamageUp
+  m_Name: DamageUpEpic
   m_EditorClassIdentifier: 
   Buff: 2
+  Quality: 2
   displayName: Damage Buff
   descrition: Adds damage to the player
-  chanceOfCostRare: 50
-  chanceOfCostEpic: 70
-  NormalPercent: 5
-  RarePercent: 10
-  EpicPercent: 20
-  RareChancePercentage: 15
-  EpicChancePercentage: 5
+  valueMultiplier: 20
+  RamCost: 25

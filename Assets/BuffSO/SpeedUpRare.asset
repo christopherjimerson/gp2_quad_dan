@@ -10,15 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0396fd8f0329b6143a8dc502787d55bd, type: 3}
-  m_Name: SpeedUp
+  m_Name: SpeedUpRare
   m_EditorClassIdentifier: 
   Buff: 0
+  Quality: 1
   displayName: Speed Buff
   descrition: Adds speed to the player
-  chanceOfCostRare: 50
-  chanceOfCostEpic: 70
-  NormalPercent: 5
-  RarePercent: 10
-  EpicPercent: 20
-  RareChancePercentage: 15
-  EpicChancePercentage: 5
+  valueMultiplier: 10
+  RamCost: 15

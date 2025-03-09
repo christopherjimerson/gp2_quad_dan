@@ -339,16 +339,19 @@ public class SCR_GameController : MonoBehaviour
             switch (buff.Buff) {
                 case BuffType.SPD:
                     player.TryGetComponent<SCR_FirstPersonController>(out SCR_FirstPersonController speed);
-                    speed.speedIncrease += (speed.defaultWalkSpeed * (buff.GetPercentValue() / 100f));
+                    //Debug.Log("This buff has this value: " + buff.GetPercentValue());
+                    speed.speedIncrease += (speed.defaultWalkSpeed * (buff.valueMultiplier / 100f));
                     break;
                 case BuffType.HP:
                     player.TryGetComponent<PlayerHealth>(out PlayerHealth health);
-                    health.currentHealth += (health.currentHealth * (buff.GetPercentValue() / 100));
-                    health.maxHealth += (health.maxHealth * buff.GetPercentValue() / 100);
+                    //Debug.Log("This buff has this value: " + buff.GetPercentValue());
+                    health.currentHealth += (health.currentHealth * (buff.valueMultiplier / 100));
+                    health.maxHealth += (health.maxHealth * buff.valueMultiplier / 100);
                     break;
                 case BuffType.DMG:
                     player.TryGetComponent<SCR_FirstPersonController>(out SCR_FirstPersonController dmg);
-                    dmg.DamageMultiplier += buff.GetPercentValue();
+                    //Debug.Log("This buff has this value: " + buff.GetPercentValue());
+                    dmg.DamageMultiplier += buff.valueMultiplier / 100;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -397,7 +400,7 @@ public class SCR_GameController : MonoBehaviour
     /// <returns>Buff type. ex: speed, damage, hp</returns>
     public SCR_SO_Buff GetRandomBuff() {
         var buff = AvalibleBuffs[UnityEngine.Random.Range(0, AvalibleBuffs.Count)];
-        buff.RandomizeQuality();
+        //buff.RandomizeQuality();
         return buff;
     }
 
@@ -458,10 +461,12 @@ public class SCR_GameController : MonoBehaviour
         ram.OnUnEquipRam();
         OnUnEquipRam?.Invoke(ram);
     }
+    
     public void AddBuff(SCR_SO_Buff buff) {
         var boof = buff;
         PlayerBuffs.Add(boof);
     }
+   
 
     public void PlayerChoseWeapon()
     {

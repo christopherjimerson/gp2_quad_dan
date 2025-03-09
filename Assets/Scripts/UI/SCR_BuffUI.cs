@@ -10,9 +10,9 @@ public class SCR_BuffUI : MonoBehaviour
     public Image[] buttonImages;
 
     public Image[] stats;
-    private int totalSpeedAdded;
-    private int totalHealthAdded;
-    private int totalDamageAdded;
+    [SerializeField] private int totalSpeedAdded;
+    [SerializeField] private int totalHealthAdded;
+    [SerializeField] private int totalDamageAdded;
     public GameObject NewRamUnlockedButton, RAMUnlockedGameObject;
     //This is dumb, this should be a for loop, but apparently it does not like it when values get changed between, i suppose i could do buff123 assigned before and forloop the rest, but nah, this works and i dont want to think about it //Daniel
     private void OnEnable()
