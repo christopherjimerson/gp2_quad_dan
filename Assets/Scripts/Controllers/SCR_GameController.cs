@@ -339,19 +339,16 @@ public class SCR_GameController : MonoBehaviour
             switch (buff.Buff) {
                 case BuffType.SPD:
                     player.TryGetComponent<SCR_FirstPersonController>(out SCR_FirstPersonController speed);
-                    //Debug.Log("This buff has this value: " + buff.GetPercentValue());
                     speed.speedIncrease += (speed.defaultWalkSpeed * (buff.valueMultiplier / 100f));
                     break;
                 case BuffType.HP:
                     player.TryGetComponent<PlayerHealth>(out PlayerHealth health);
-                    //Debug.Log("This buff has this value: " + buff.GetPercentValue());
                     health.currentHealth += (health.currentHealth * (buff.valueMultiplier / 100));
                     health.maxHealth += (health.maxHealth * buff.valueMultiplier / 100);
                     break;
                 case BuffType.DMG:
                     player.TryGetComponent<SCR_FirstPersonController>(out SCR_FirstPersonController dmg);
-                    //Debug.Log("This buff has this value: " + buff.GetPercentValue());
-                    dmg.DamageMultiplier += buff.valueMultiplier / 100;
+                    dmg.DamageMultiplier += (buff.valueMultiplier / 100);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
