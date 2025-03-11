@@ -20,6 +20,8 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
     [SerializeField] private string sprint = "Sprint";
     [SerializeField] private string swapWeapon = "SwapWeapon";
     [SerializeField] private string dash = "Dash";
+    [SerializeField] private string shoot = "Shoot";
+    [SerializeField] private string reload = "Reload";
 
 
     [Header("Weapon References")]
@@ -39,6 +41,8 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
     InputAction _dashAction;
     InputAction _sprintAction;
     InputAction _swapWeaponAction;
+    InputAction _shootAction;
+    InputAction _reloadAction;
 
 
     public Vector2 MovementInput { get; private set; }
@@ -46,6 +50,8 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
     public bool JumpTriggered { get; private set; }
     public bool SprintTriggered { get; private set; }
     public bool DashTriggered { get; private set; }
+    public bool ShotTriggered { get; private set; }
+
 
 
 
@@ -59,6 +65,8 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
         _dashAction = mapReference.FindAction(dash);
         _sprintAction = mapReference.FindAction(sprint);
         _swapWeaponAction = mapReference.FindAction(swapWeapon);
+        _shootAction = mapReference.FindAction(shoot);
+        _reloadAction = mapReference.FindAction(reload);
 
         SubscribeActionValuesToInputEvents();
 
@@ -93,6 +101,9 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
         _sprintAction.performed += inputInfo => SprintTriggered = true;
         _sprintAction.canceled += inputInfo => SprintTriggered = false;
 
+        _shootAction.performed += inputInfo => FireActiveWeapon();
+        _reloadAction.performed += inputInfo => ReloadActiveWeapon();
+
         _swapWeaponAction.performed += inputInfo => SwapWeapons();
     }
 
@@ -125,5 +136,21 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
 
     private void OnDisable() {
         playerControls.FindActionMap(actionMapName).Disable();
+    }
+
+    private void FireActiveWeapon() {
+        if (weapon1.activeSelf) {
+            weapon1.GetComponent<SCR_Shoot_Hitscan>().FireWeapon();
+        } /*else if (weapon2.activeSelf) {
+            weapon2.GetComponent<SCR_AssaultRifle>().FireWeapon();
+        } else if (weapon3.activeSelf) {
+            weapon3.GetComponent<SCR_Shotgun>().FireWeapon();
+        }*/
+    }
+
+    private void ReloadActiveWeapon() {
+        if (weapon1.activeSelf) {
+            weapon1.GetComponent<SCR_Shoot_Hitscan>().ReloadWeapon();
+        }
     }
 }

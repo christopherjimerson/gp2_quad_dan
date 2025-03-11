@@ -13,7 +13,7 @@ public class SCR_Shoot_Hitscan : MonoBehaviour
     private int adjustedDamage;
 
     [Header("Reload Values")]
-    [SerializeField] private int clipSize = 30;
+    [SerializeField] private int clipSize;
     [SerializeField] private int shotsFired;
     [SerializeField] private float reloadSpeed = 2.0f;
     public bool _isReloading = false;
@@ -53,17 +53,17 @@ public class SCR_Shoot_Hitscan : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && (shotsFired < clipSize) && !_isReloading && SCR_GameController.Instance.CurrentPlayer.GetComponent<SCR_FirstPersonController>().isPaused == false)
+        /*if (Input.GetKeyDown(KeyCode.Mouse0) && (shotsFired < clipSize) && !_isReloading && SCR_GameController.Instance.CurrentPlayer.GetComponent<SCR_FirstPersonController>().isPaused == false)
         {
             ShootRay();
             AutoReload();
-        }
+        }*/
 
-        if (Input.GetKeyDown(KeyCode.R) && !_isReloading)
+        /*if (Input.GetKeyDown(KeyCode.R) && !_isReloading && (shotsFired != 0))
         {
             _isReloading = true;
             StartCoroutine(Reload());
-        }
+        }*/
     }
 
     void OnEnable()
@@ -83,7 +83,7 @@ public class SCR_Shoot_Hitscan : MonoBehaviour
         gunAnimation.Play("Pistol_Idle_Arms");
     }
 
-    private void ShootRay()
+    public void ShootRay()
     {
         gunAnimation.Play("Pistol_Shoot_Gun", 0, 0f);
         gunAnimation.Play("Pistol_Shoot_Arms", 1, 0f);
@@ -149,5 +149,20 @@ public class SCR_Shoot_Hitscan : MonoBehaviour
         clipEmpty = false;
         hud.UpdateAmmoCount(shotsFired, clipSize);
         Debug.Log("Reload complete!");
+    }
+
+    public void FireWeapon() {
+        Debug.Log("Shot Fired from Input System");
+        if ((shotsFired < clipSize) && !_isReloading && SCR_GameController.Instance.CurrentPlayer.GetComponent<SCR_FirstPersonController>().isPaused == false) {
+            ShootRay();
+            AutoReload();
+        }
+    }
+
+    public void ReloadWeapon() {
+        if (!_isReloading && (shotsFired != 0)) {
+            _isReloading = true;
+            StartCoroutine(Reload());
+        }
     }
 }
