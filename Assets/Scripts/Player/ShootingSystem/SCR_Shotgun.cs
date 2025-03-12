@@ -53,7 +53,7 @@ public class SCR_Shotgun : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && (shotsFired < clipSize) && !_isReloading)
+        /*if (Input.GetKeyDown(KeyCode.Mouse0) && (shotsFired < clipSize) && !_isReloading)
         {
             ShootShotgun();
             AutoReload();
@@ -63,7 +63,7 @@ public class SCR_Shotgun : MonoBehaviour
         {
             _isReloading = true;
             StartCoroutine(Reload());
-        }
+        }*/
     }
 
     private void OnEnable()
@@ -153,5 +153,22 @@ public class SCR_Shotgun : MonoBehaviour
         clipEmpty = false;
         hud.UpdateAmmoCount(shotsFired, clipSize);
         Debug.Log("Reload complete!");
+    }
+
+    public void FireWeapon() {
+        Debug.Log("Shot Fired from Input System");
+        if ((shotsFired < clipSize) && !_isReloading && SCR_GameController.Instance.CurrentPlayer.GetComponent<SCR_FirstPersonController>().isPaused == false)
+        {
+            ShootShotgun();
+            AutoReload();
+        }
+    }
+
+    public void ReloadWeapon() {
+        if (!_isReloading && (shotsFired != 0))
+        {
+            _isReloading = true;
+            StartCoroutine(Reload());
+        }
     }
 }

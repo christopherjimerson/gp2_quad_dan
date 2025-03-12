@@ -34,6 +34,8 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
     public GameObject Weapon2 { get => weapon2; }
     public GameObject Weapon3 { get => weapon3; }
 
+    private Coroutine _autoFireCoroutine;
+
 
     InputAction _movementAction;
     InputAction _rotationAction;
@@ -101,7 +103,9 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
         _sprintAction.performed += inputInfo => SprintTriggered = true;
         _sprintAction.canceled += inputInfo => SprintTriggered = false;
 
-        _shootAction.performed += inputInfo => FireActiveWeapon();
+        _shootAction.started += inputInfo => FireActiveWeapon();
+        _shootAction.canceled += inputInfo => StopFiring();
+
         _reloadAction.performed += inputInfo => ReloadActiveWeapon();
 
         _swapWeaponAction.performed += inputInfo => SwapWeapons();
@@ -141,11 +145,30 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
     private void FireActiveWeapon() {
         if (weapon1.activeSelf) {
             weapon1.GetComponent<SCR_Shoot_Hitscan>().FireWeapon();
-        } /*else if (weapon2.activeSelf) {
-            weapon2.GetComponent<SCR_AssaultRifle>().FireWeapon();
-        } else if (weapon3.activeSelf) {
+        }else if (weapon2.activeSelf) {
+            _autoFireCoroutine = StartCoroutine(AutoFireCoroutine());
+        }
+        else if (weapon3.activeSelf) {
             weapon3.GetComponent<SCR_Shotgun>().FireWeapon();
-        }*/
+        }
+    }
+
+    private void StopFiring() {
+        if (_autoFireCoroutine != null)
+        {
+            StopCoroutine(_autoFireCoroutine);
+            _autoFireCoroutine = null;
+            weapon2.GetComponent<SCR_AssaultRifle>().StopMuzzleFlash();
+        }
+    }
+
+    private IEnumerator AutoFireCoroutine() {
+        SCR_AssaultRifle rifle = weapon2.GetComponent<SCR_AssaultRifle>();
+        while (true)
+        {
+            rifle.FireWeapon();
+            yield return new WaitForSeconds(0.1f); // Adjust this based on your weapon's fire rate
+        }
     }
 
     private void ReloadActiveWeapon() {

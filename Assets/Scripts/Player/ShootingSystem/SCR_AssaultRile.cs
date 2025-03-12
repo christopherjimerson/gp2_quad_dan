@@ -51,6 +51,7 @@ public class SCR_AssaultRifle : MonoBehaviour
 
     void Update()
     {
+        /*
         if ((Input.GetKeyDown(KeyCode.R) && !_isReloading) || clipEmpty)
         {
             _isReloading = true;
@@ -71,7 +72,7 @@ public class SCR_AssaultRifle : MonoBehaviour
         {
             isFiring = false;
             StopMuzzleFlash();
-        }
+        } */
     }
 
     void OnEnable()
@@ -124,7 +125,7 @@ public class SCR_AssaultRifle : MonoBehaviour
         }
     }
 
-    private void StopMuzzleFlash()
+    public void StopMuzzleFlash()
     {
         if (muzzleFlashVFX)
         {
@@ -153,7 +154,7 @@ public class SCR_AssaultRifle : MonoBehaviour
         }
         AutoReload();
         isFiring = false;
-        StopMuzzleFlash();
+        
     }
 
     private IEnumerator DestroyHitSpot(GameObject hitSpot, float lifetime)
@@ -174,5 +175,21 @@ public class SCR_AssaultRifle : MonoBehaviour
         clipEmpty = false;
         hud.UpdateAmmoCount(shotsFired, clipSize);
         Debug.Log("Reload complete!");
+    }
+    public void FireWeapon() {
+        Debug.Log("Shot Fired from Input System");
+        if ((shotsFired < clipSize) && !_isReloading && SCR_GameController.Instance.CurrentPlayer.GetComponent<SCR_FirstPersonController>().isPaused == false)
+        {
+            ShootRay();
+            AutoReload();
+        }
+    }
+
+    public void ReloadWeapon() {
+        if (!_isReloading && (shotsFired != 0))
+        {
+            _isReloading = true;
+            StartCoroutine(Reload());
+        }
     }
 }
