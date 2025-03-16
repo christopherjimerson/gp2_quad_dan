@@ -75,8 +75,7 @@ public class SCR_Shoot_Hitscan : MonoBehaviour
         hud.UpdateAmmoCount(shotsFired, clipSize);
         _isReloading = false;
 
-        if (hud.pointReticle)
-        {
+        if (hud.reticalOn) {
             hud.pointReticle.SetActive(true);
             hud.shotgunReticle.SetActive(false);
         }

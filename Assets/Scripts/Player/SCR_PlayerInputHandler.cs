@@ -12,6 +12,7 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
     [Header("Action Map Name Reference")]
     [SerializeField] private string actionMapName = "Player";
 
+    public event System.Action OnInteract;
 
     [Header("Action Name References")]
     [SerializeField] private string movement = "Movement";
@@ -22,6 +23,7 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
     [SerializeField] private string dash = "Dash";
     [SerializeField] private string shoot = "Shoot";
     [SerializeField] private string reload = "Reload";
+    [SerializeField] private string interact = "Interact";
 
 
     [Header("Weapon References")]
@@ -45,6 +47,7 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
     InputAction _swapWeaponAction;
     InputAction _shootAction;
     InputAction _reloadAction;
+    InputAction _interactAction;
 
 
     public Vector2 MovementInput { get; private set; }
@@ -53,6 +56,7 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
     public bool SprintTriggered { get; private set; }
     public bool DashTriggered { get; private set; }
     public bool ShotTriggered { get; private set; }
+    public bool InteractTriggered { get; private set; }
 
 
 
@@ -69,6 +73,7 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
         _swapWeaponAction = mapReference.FindAction(swapWeapon);
         _shootAction = mapReference.FindAction(shoot);
         _reloadAction = mapReference.FindAction(reload);
+        _interactAction = mapReference.FindAction(interact);
 
         SubscribeActionValuesToInputEvents();
 
@@ -102,6 +107,9 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
 
         _sprintAction.performed += inputInfo => SprintTriggered = true;
         _sprintAction.canceled += inputInfo => SprintTriggered = false;
+
+        _interactAction.performed += inputInfo => { InteractTriggered = true; OnInteract?.Invoke();};
+        _interactAction.canceled += inputInfo => InteractTriggered = false;
 
         _shootAction.started += inputInfo => FireActiveWeapon();
         _shootAction.canceled += inputInfo => StopFiring();
@@ -167,7 +175,7 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
         while (true)
         {
             rifle.FireWeapon();
-            yield return new WaitForSeconds(0.1f); // Adjust this based on your weapon's fire rate
+            yield return new WaitForSeconds(0.1f); // Adjust this based on weapon's fire rate
         }
     }
 

@@ -3,7 +3,14 @@ using UnityEngine;
 
 public class SCR_SO_CrosshairRam : SCR_SO_Ram {
     public override void OnEquipRam() {
-         SCR_HeadsUpDisplay.Instance.reticalOn = true; 
+        SCR_HeadsUpDisplay.Instance.reticalOn = true;
+        if(SCR_GameController.Instance.weaponDataStorage.pistolSelected || SCR_GameController.Instance.weaponDataStorage.rifleSelected) {
+            SCR_HeadsUpDisplay.Instance.pointReticle.gameObject.SetActive(true);
+        }else if(SCR_GameController.Instance.weaponDataStorage.shotgunSelected) {
+            SCR_HeadsUpDisplay.Instance.pointReticle.gameObject.SetActive(true);
+        }
+
+
     }
     public override void OnUnEquipRam()
     {
