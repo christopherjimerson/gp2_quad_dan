@@ -258,24 +258,16 @@ public class SCR_FirstPersonController : MonoBehaviour {
         if (characterController.isGrounded && jumpSOEquipped)
         {
             
-            _canDoubleJump = doubleJumpEnabled;
-            _currentMovement.y = -0.5f;
-
             if (playerInputHandler.JumpTriggered)
             {
                 AudioManager.Instance.Play("Player_Jump");
                 _currentMovement.y = jumpForce;
             }
         }
-        else
+        else if(!characterController.isGrounded)
         {
             _currentMovement.y += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
 
-            if (_canDoubleJump && playerInputHandler.JumpTriggered)
-            {
-                _currentMovement.y = doubleJumpForce;
-                _canDoubleJump = false;
-            }
         }
     }
 
@@ -295,10 +287,7 @@ public class SCR_FirstPersonController : MonoBehaviour {
                     stepTimer = 0f;
                 }
             }
-        }
-
-        _currentMovement.y += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
-
+        } 
         HandleJumping();
         characterController.Move(_currentMovement * Time.deltaTime);
     }
