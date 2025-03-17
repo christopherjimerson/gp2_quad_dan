@@ -281,7 +281,6 @@ public class SCR_FirstPersonController : MonoBehaviour {
 
 
     private void Movement() {
-        _currentMovement.y += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
         Vector3 _worldDirection = CalculateWorldDirection();
         if (characterController.isGrounded || _worldDirection != Vector3.zero)
         {
@@ -298,6 +297,7 @@ public class SCR_FirstPersonController : MonoBehaviour {
             }
         }
 
+        _currentMovement.y += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
 
         HandleJumping();
         characterController.Move(_currentMovement * Time.deltaTime);
