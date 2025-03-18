@@ -239,6 +239,24 @@ public class SCR_GameController : MonoBehaviour
         //    StartCoroutine(SlowSpawnPlayer());
     }
 
+    public void OutOfBoundsRespawn(GameObject player) {
+        var spawnPoint = GameObject.FindGameObjectWithTag("Spawn");
+
+        if (spawnPoint != null) {
+            CharacterController controller = player.GetComponent<CharacterController>();
+
+            if (controller != null) {
+                controller.enabled = false;  // Disable to allow manual position change
+                player.transform.position = spawnPoint.transform.position;
+                controller.enabled = true;   // Re-enable after teleporting
+            } else {
+                player.transform.position = spawnPoint.transform.position; // Fallback if no CharacterController
+            }
+
+            player.transform.rotation = spawnPoint.transform.rotation; // Reset rotation
+        }
+    }
+
     public void PlayerDeath()
     {
         if (CurrentPlayer)
@@ -296,7 +314,7 @@ public class SCR_GameController : MonoBehaviour
     }
 
     public IEnumerator SlowSpawnPlayer() {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         SpawnPlayer();
     }
 
@@ -334,6 +352,8 @@ public class SCR_GameController : MonoBehaviour
 
         SaveManager.SaveGame();
     }
+
+    
     void LoopBuffList(GameObject player) {
         foreach (var buff in PlayerBuffs) {
             switch (buff.Buff) {
