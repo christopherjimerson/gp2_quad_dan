@@ -239,6 +239,20 @@ public class SCR_GameController : MonoBehaviour
         //    StartCoroutine(SlowSpawnPlayer());
     }
 
+    public void ResetLevel() {
+        if (CurrentPlayer) {
+            Destroy(CurrentPlayer);
+            CurrentPlayer = null;
+        }
+
+        SCR_LevelGenerator.Instance.RoomsToCreate++;
+        SCR_LevelGenerator.Instance.DestroyLevel();
+        SCR_LevelGenerator.Instance.GenerateLevel();
+        clearedRooms = 0;
+        LoadPlayerScreen.SetActive(true);
+
+    }
+
     public void OutOfBoundsRespawn(GameObject player) {
         var spawnPoint = GameObject.FindGameObjectWithTag("Spawn");
 
