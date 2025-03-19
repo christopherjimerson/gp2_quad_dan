@@ -18,4 +18,9 @@ public class SCR_PauseMenu : MonoBehaviour
         SCR_GameController.Instance.TogglePauseMenuUI(false, 1);
         SCR_GameController.Instance.ResetLevel();
     }
+
+    public void QuitToMenu() {
+        SCR_GameController.Instance.TogglePauseMenuUI(false, 1);
+        SCR_GameController.Instance.QuitToMenu();
+    }
 }

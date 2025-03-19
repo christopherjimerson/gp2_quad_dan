@@ -253,6 +253,10 @@ public class SCR_GameController : MonoBehaviour
 
     }
 
+    public void QuitToMenu() {
+        SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+    }
+
     public void OutOfBoundsRespawn(GameObject player) {
         var spawnPoint = GameObject.FindGameObjectWithTag("Spawn");
 
