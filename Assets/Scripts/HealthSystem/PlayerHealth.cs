@@ -54,6 +54,9 @@ public class PlayerHealth : MonoBehaviour, IDamageble
         if (currentHealth <= 0)
         {
             EventManager.Instance.PlayerDied();
+            hud.reticalOn = false;
+            hud.pointReticle.gameObject.SetActive(false);
+            hud.shotgunReticle.gameObject.SetActive(false);
             Destroy(gameObject);
         }
     }

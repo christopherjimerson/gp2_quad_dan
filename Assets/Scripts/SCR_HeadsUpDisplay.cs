@@ -15,7 +15,7 @@ public class SCR_HeadsUpDisplay : MonoBehaviour
     [SerializeField] public GameObject pointReticle;
     [SerializeField] public GameObject shotgunReticle;
     [SerializeField] public GameObject scopeReticle;
-    [SerializeField] public bool reticalOn = false;
+    [SerializeField] public bool reticalOn;
     //[SerializeField] public bool crosshairSOEquiped = false;
     [SerializeField] private SCR_FirstPersonController player;
     [Header("Power Up Icons")]
@@ -58,7 +58,6 @@ public class SCR_HeadsUpDisplay : MonoBehaviour
             Instance = this;
         }
 
-
         //SCR_GameController.Instance.OnEquipRam += EnableReticle;
         //SCR_GameController.Instance.OnUnEquipRam += EnableReticle;
     }
@@ -67,11 +66,10 @@ public class SCR_HeadsUpDisplay : MonoBehaviour
     void Start()
     {
         UpdateStaminaBar(1f);
-        if (reticalOn)
+        if (!reticalOn)
         {
             pointReticle.gameObject.SetActive(false);
             shotgunReticle.gameObject.SetActive(false);
-            scopeReticle.gameObject.SetActive(false);
 
         }
         shieldCooldown.gameObject.SetActive(false);
@@ -84,11 +82,9 @@ public class SCR_HeadsUpDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.B)) {
-            SCR_GameController.Instance.weaponDataStorage.pistolSelected = true;
-        }
-    }
 
+    }
+    /*
     public void CrosshairUpdateRAM() {
         reticalOn = true;
         if (reticalOn == true) {
@@ -100,7 +96,7 @@ public class SCR_HeadsUpDisplay : MonoBehaviour
                 pointReticle.SetActive(true);
             }
         }
-    }
+    }*/
 
     public void UpdateAmmoCount(int currentAmmo, int maxAmmo)
     {

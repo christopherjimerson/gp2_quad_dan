@@ -26,15 +26,15 @@ public class WeaponDataStorage : MonoBehaviour
 
             {
                 playerInputHandler.Weapon1.SetActive(false);
-                playerInputHandler.Weapon2.SetActive(true);
-                playerInputHandler.Weapon3.SetActive(false);
+                playerInputHandler.Weapon2.SetActive(false);
+                playerInputHandler.Weapon3.SetActive(true);
             }
             else if (rifleSelected)
 
             {
                 playerInputHandler.Weapon1.SetActive(false);
-                playerInputHandler.Weapon2.SetActive(false);
-                playerInputHandler.Weapon3.SetActive(true);
+                playerInputHandler.Weapon2.SetActive(true);
+                playerInputHandler.Weapon3.SetActive(false);
             }
 
         }

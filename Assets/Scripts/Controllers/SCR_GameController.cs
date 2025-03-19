@@ -244,7 +244,12 @@ public class SCR_GameController : MonoBehaviour
             Destroy(CurrentPlayer);
             CurrentPlayer = null;
         }
-
+        if(currentFloor == 1) {
+            weaponDataStorage.weaponSelected = false;
+            weaponDataStorage.pistolSelected = false;
+            weaponDataStorage.shotgunSelected = false;
+            weaponDataStorage.rifleSelected = false;
+        }
         SCR_LevelGenerator.Instance.RoomsToCreate++;
         SCR_LevelGenerator.Instance.DestroyLevel();
         SCR_LevelGenerator.Instance.GenerateLevel();

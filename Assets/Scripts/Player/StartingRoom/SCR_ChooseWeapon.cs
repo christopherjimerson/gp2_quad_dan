@@ -46,13 +46,13 @@ public class SCR_ChooseWeapon : MonoBehaviour {
             playerInputHandler.Weapon2.SetActive(true);
             playerInputHandler.Weapon3.SetActive(false);
             SCR_GameController.Instance.weaponDataStorage.weaponSelected = true;
-            SCR_GameController.Instance.weaponDataStorage.shotgunSelected = true;
+            SCR_GameController.Instance.weaponDataStorage.rifleSelected = true;
         } else if (weaponNumber == 3) {
             playerInputHandler.Weapon1.SetActive(false);
             playerInputHandler.Weapon2.SetActive(false);
             playerInputHandler.Weapon3.SetActive(true);
             SCR_GameController.Instance.weaponDataStorage.weaponSelected = true;
-            SCR_GameController.Instance.weaponDataStorage.rifleSelected = true;
+            SCR_GameController.Instance.weaponDataStorage.shotgunSelected = true;
         }
 
         SCR_GameController.Instance.PlayerChoseWeapon();
