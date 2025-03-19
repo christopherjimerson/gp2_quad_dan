@@ -182,6 +182,10 @@ public class SCR_PlayerInputHandler : MonoBehaviour {
     private void ReloadActiveWeapon() {
         if (weapon1.activeSelf) {
             weapon1.GetComponent<SCR_Shoot_Hitscan>().ReloadWeapon();
+        } else if (weapon2.activeSelf) {
+            weapon2.GetComponent<SCR_AssaultRifle>().ReloadWeapon();
+        } else if (weapon3.activeSelf) {
+            weapon3.GetComponent<SCR_Shotgun>() .ReloadWeapon();
         }
     }
 }
